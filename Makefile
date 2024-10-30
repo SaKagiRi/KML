@@ -42,7 +42,8 @@ FILE		= ft_atoi.c \
 		ft_lstdelone_bonus.c \
 		ft_lstadd_back_bonus.c \
 		ft_lstadd_front_bonus.c \
-		ft_printf.c
+		ft_printf.c \
+		gnl.c
 
 CC 		= cc
 AR_AND_FLAGS	= ar -rcs
