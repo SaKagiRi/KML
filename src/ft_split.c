@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "kml.h"
 
 static size_t	count_word(char *s, char c)
 {

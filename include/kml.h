@@ -1,23 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   kml.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2024/10/30 04:27:08 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/10 18:28:56 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef KML_H
+# define KML_H
 # include <string.h>
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
+
+/*for get_next_line*/
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 2048
+# endif
+
+# ifndef LIMIT
+#  define LIMIT 10000
+# endif
+
+typedef struct s_lst
+{
+	char			content[BUFFER_SIZE];
+	size_t			len;
+	struct s_lst	*next;
+}	t_lst;
+
+typedef struct s_var
+{
+	int		fd;
+	int		eof;
+	int		fin;
+	t_lst	*word;
+	t_lst	*run;
+	size_t	offset;
+	size_t	nlb;
+}	t_var;
+
+char	*get_next_line(int fd);
+
+/*for lib*/
 typedef struct s_list
 {
 	void			*content;

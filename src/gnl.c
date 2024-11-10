@@ -6,13 +6,13 @@
 /*   By: knakto <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:36:27 by knakto            #+#    #+#             */
-/*   Updated: 2024/10/30 15:52:58 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/10 18:19:50 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gnl.h"
+#include "kml.h"
 
-void	read_line(t_var *var)
+static void	read_line(t_var *var)
 {
 	if (!var->run)
 	{
@@ -39,7 +39,7 @@ void	read_line(t_var *var)
 		var->eof = 1;
 }
 
-void	coppy_line(t_var *var, char *str)
+static void	coppy_line(t_var *var, char *str)
 {
 	size_t	i;
 	t_lst	*temp;
@@ -58,7 +58,7 @@ void	coppy_line(t_var *var, char *str)
 	}
 }
 
-void	set_line(t_var *var)
+static void	set_line(t_var *var)
 {
 	t_lst	*node;
 	size_t	i;
