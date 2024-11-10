@@ -1,4 +1,4 @@
-NAME 		= libft.a
+NAME 		= KML.a
 FILE		= ft_atoi.c \
 		ft_itoa.c \
 		ft_bzero.c \
