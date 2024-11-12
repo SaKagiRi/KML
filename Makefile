@@ -1,4 +1,4 @@
-NAME 		= KML.a
+NAME 		= kml.a
 FILE		= ft_atoi.c \
 		ft_itoa.c \
 		ft_bzero.c \
@@ -57,7 +57,10 @@ SRC		= $(addprefix $(src_dir)/, $(FILE))
 OBJ		= $(addprefix $(obj_dir)/, $(FILE:%.c=%.o))
 out_dir		= ./
 
-all:		$(obj_dir) $(NAME) generate
+all:		$(obj_dir) $(NAME) generate coppy_header
+
+coppy_header	:
+			@cp include/kml.h $(out_dir)
 
 $(obj_dir)/%.o:	$(src_dir)/%.c
 			@$(CC) $(CFLAGS) $(inc) -c $< -o $@ && printf "Compiling: \033[0;32m$<\033[0m\n"
@@ -70,12 +73,14 @@ $(obj_dir):
 
 clean:
 	@$(RM) $(obj_dir) && printf "\033[1;31mDelete all Object file.\033[0m\n"
+
 fclean:clean
-	@$(RM) $(out_dir)/$(NAME) && printf "\033[1;31mRemove Libft.a file.\033[0m\n"
+	@$(RM) $(out_dir)/$(NAME) && $(RM) $(out_dir)/kml.h && printf "\033[1;31mRemove Libft.a file.\033[0m\n"
+
 re:fclean all
 
 
-.PHONY: all re clean fclean bonus generate start
+.PHONY: all re clean fclean bonus generate start coppy_header
 
 
 generate:
