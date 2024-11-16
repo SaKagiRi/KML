@@ -43,7 +43,8 @@ FILE		= ft_atoi.c \
 		ft_lstadd_back_bonus.c \
 		ft_lstadd_front_bonus.c \
 		ft_printf.c \
-		gnl.c
+		gnl.c \
+		argstr.c
 
 CC 		= cc
 AR_AND_FLAGS	= ar -rcs
@@ -55,9 +56,9 @@ obj_dir		= obj
 inc		= -I include
 SRC		= $(addprefix $(src_dir)/, $(FILE))
 OBJ		= $(addprefix $(obj_dir)/, $(FILE:%.c=%.o))
-out_dir		= ./
+out_dir		= ../
 
-all:		$(obj_dir) $(NAME) generate coppy_header
+all:		$(obj_dir) $(NAME) generate #coppy_header
 
 coppy_header	:
 			@cp include/kml.h $(out_dir)
