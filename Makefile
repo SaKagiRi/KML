@@ -49,16 +49,16 @@ FILE		= ft_atoi.c \
 CC 		= cc
 AR_AND_FLAGS	= ar -rcs
 RM		= rm -rf
-CFLAGS		= 
+CFLAGS		= -Wall -Wextra -Werror 
 MKDIR		= mkdir -p
 src_dir		= src
 obj_dir		= obj
 inc		= -I include
 SRC		= $(addprefix $(src_dir)/, $(FILE))
 OBJ		= $(addprefix $(obj_dir)/, $(FILE:%.c=%.o))
-out_dir		= ../
+out_dir		= ./
 
-all:		$(obj_dir) $(NAME) generate #coppy_header
+all:		$(obj_dir) $(NAME) generate
 
 coppy_header	:
 			@cp include/kml.h $(out_dir)
@@ -76,7 +76,7 @@ clean:
 	@$(RM) $(obj_dir) && printf "\033[1;31mDelete all Object file.\033[0m\n"
 
 fclean:clean
-	@$(RM) $(out_dir)/$(NAME) && $(RM) $(out_dir)/kml.h && printf "\033[1;31mRemove Libft.a file.\033[0m\n"
+	@$(RM) $(out_dir)/$(NAME) && printf "\033[1;31mRemove Libft.a file.\033[0m\n"
 
 re:fclean all
 

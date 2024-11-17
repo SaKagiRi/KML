@@ -6,7 +6,7 @@
 /*   By: knakto <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 23:42:23 by knakto            #+#    #+#             */
-/*   Updated: 2024/11/17 04:00:39 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/17 15:31:22 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ static char	*sub(char *find, char **n, char *str, int i)
 char	*argstr(char *find, char **n)
 {
 	size_t	i;
-	size_t	j;
-	size_t	k;
-	char	*tmp;
 	char	*str;
 
 	if (!find || !n)
