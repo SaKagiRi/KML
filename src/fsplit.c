@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   fsplit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:12:48 by knakto            #+#    #+#             */
-/*   Updated: 2024/11/17 17:42:50 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/17 17:43:47 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ static char	*ft_strncpy(char *dest, const char *src, size_t n)
 	return (dest);
 }
 
-char	**free_split(char **alloc)
-{
-	size_t	i;
-
-	i = 0;
-	while (*(alloc + i) != NULL)
-	{
-		free(*(alloc + i));
-		i++;
-	}
-	free(alloc);
-	return (NULL);
-}
-
 static char	**alloc(char **str, char *s, char c, size_t count)
 {
 	size_t	i;
@@ -92,7 +78,7 @@ static char	**alloc(char **str, char *s, char c, size_t count)
 	return (str);
 }
 
-char	**ft_split(const char *s, char c)
+char	**fsplit(char *s, char c)
 {
 	size_t	count;
 	char	**str;
@@ -105,6 +91,7 @@ char	**ft_split(const char *s, char c)
 		return (NULL);
 	str[count + 1] = NULL;
 	str = alloc(str, (char *)s, c, count);
+	free(s);
 	return (str);
 }
 

@@ -44,7 +44,8 @@ FILE		= ft_atoi.c \
 		ft_lstadd_front_bonus.c \
 		ft_printf.c \
 		gnl.c \
-		argstr.c
+		argstr.c \
+		fsplit.c 
 
 CC 		= cc
 AR_AND_FLAGS	= ar -rcs
