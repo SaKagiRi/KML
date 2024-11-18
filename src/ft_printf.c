@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:04:01 by knakto            #+#    #+#             */
-/*   Updated: 2024/10/30 04:27:37 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/17 21:59:17 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	ft_check(const char c, va_list arg)
 	return (len);
 }
 
-int	ft_printf(const char *str, ...)
+int	pnf(const char *str, ...)
 {
 	int		temp;
 	int		len;

@@ -45,7 +45,8 @@ FILE		= ft_atoi.c \
 		ft_printf.c \
 		gnl.c \
 		argstr.c \
-		fsplit.c 
+		fsplit.c \
+		fjoin.c
 
 CC 		= cc
 AR_AND_FLAGS	= ar -rcs

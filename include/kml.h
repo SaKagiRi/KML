@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2024/11/17 21:54:14 by knakto           ###   ########.fr       */
+/*   Updated: 2024/11/17 22:29:37 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 
-int		ft_printf(const char *str, ...);
+int		pnf(const char *str, ...);
 
 char	*strjoin_nl(char *s1, char *s2);
+char	*fjoin(char *s1, char *s2);
 char	*argstr(char *find, char **n);
 char	**free_split(char **alloc);
 char	**fsplit(char *s, char c);
