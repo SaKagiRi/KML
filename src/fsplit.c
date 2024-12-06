@@ -86,7 +86,7 @@ char	**fsplit(char *s, char c)
 	if (!s)
 		return (NULL);
 	count = count_word((char *)s, c);
-	str = (char **)malloc(sizeof(char *) * (count + 1));
+	str = (char **)malloc(sizeof(char *) * (count + 2));
 	if (str == NULL)
 		return (NULL);
 	str[count + 1] = NULL;
