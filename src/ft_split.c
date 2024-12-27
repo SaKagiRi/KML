@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "kml.h"
+#include "../include/kml.h"
 
 static size_t	count_word(char *s, char c)
 {

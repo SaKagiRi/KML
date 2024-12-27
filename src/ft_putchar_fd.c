@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "kml.h"
+#include "../include/kml.h"
 
 int	ft_putchar_fd(char c, int fd)
 {

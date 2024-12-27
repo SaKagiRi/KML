@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "kml.h"
+#include "../include/kml.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t len)
 {

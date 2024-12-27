@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "kml.h"
+#include "../include/kml.h"
 
 static void	read_line(t_var *var)
 {
