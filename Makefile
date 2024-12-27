@@ -65,13 +65,13 @@ coppy_header	:
 				@cp include/kml.h $(out_dir)
 
 $(obj_dir)/%.o	:$(src_dir)/%.c
-				@$(CC) $(CFLAGS) $(inc) -c $< -o $@
+				@$(CC) $(CFLAGS) $(inc) -c $< -o $@ && printf "\033[1;32m#\033[0m"
 
 $(NAME)			:$(OBJ)
-				@$(AR_AND_FLAGS) $(addprefix $(out_dir)/, $@) $^
+				@$(AR_AND_FLAGS) $(addprefix $(out_dir)/, $@) $^ && printf "\033[1;32m-| Finish complie Libft\033[0m\n"
 
 $(obj_dir)		:
-				@$(MKDIR) $(obj_dir)
+				@$(MKDIR) $(obj_dir) && printf "\033[1;32m|-\033[0m"
 
 clean			:
 				@$(RM) $(obj_dir)
@@ -84,6 +84,3 @@ re				:fclean all
 
 .PHONY			: all re clean fclean bonus generate start coppy_header
 
-
-generate:
-	@echo "\033[1;32m\n|-----------Generate all library complete.-----------|\033[0m\n"
