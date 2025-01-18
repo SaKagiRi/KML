@@ -43,7 +43,7 @@ FILE			= ft_atoi.c \
 				ft_lstadd_back_bonus.c \
 				ft_lstadd_front_bonus.c \
 				ft_printf.c \
-				gnl.c \
+				get_next_line.c \
 				argstr.c \
 				fsplit.c \
 				fjoin.c

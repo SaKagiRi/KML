@@ -28,24 +28,6 @@
 #  define LIMIT 10000
 # endif
 
-typedef struct s_lst
-{
-	char			content[BUFFER_SIZE];
-	size_t			len;
-	struct s_lst	*next;
-}	t_lst;
-
-typedef struct s_var
-{
-	int		fd;
-	int		eof;
-	int		fin;
-	t_lst	*word;
-	t_lst	*run;
-	size_t	offset;
-	size_t	nlb;
-}	t_var;
-
 char	*get_next_line(int fd);
 
 /*for lib*/
