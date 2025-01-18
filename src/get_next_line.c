@@ -16,8 +16,7 @@ char	*fr_free(char *buffer, char *buf)
 {
 	char	*temp;
 
-	temp = ft_strjoin(buffer, buf);
-	free(buffer);
+	temp = fjoin(buffer, buf);
 	return (temp);
 }
 
