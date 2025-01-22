@@ -19,17 +19,6 @@
 # include <stdarg.h>
 # include <fcntl.h>
 
-/*for get_next_line*/
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2048
-# endif
-
-# ifndef LIMIT
-#  define LIMIT 10000
-# endif
-
-char	*get_next_line(int fd);
-
 /*for lib*/
 typedef struct s_list
 {

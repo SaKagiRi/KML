@@ -1,107 +1,137 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 11:09:06 by jdecorte          #+#    #+#             */
-/*   Updated: 2021/10/19 11:59:29 by jdecorte         ###   ########.fr       */
+/*   Created: 2025/01/22 14:52:13 by knakto            #+#    #+#             */
+/*   Updated: 2025/01/22 20:56:38 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/kml.h"
+#include "../include/get_next_line.h"
 
-char	*fr_free(char *buffer, char *buf)
-{
-	char	*temp;
-
-	temp = fjoin(buffer, buf);
-	return (temp);
-}
-
-char	*ft_next(char *buffer)
-{
-	int		i;
-	int		j;
-	char	*line;
-
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
-	i++;
-	j = 0;
-	while (buffer[i])
-		line[j++] = buffer[i++];
-	free(buffer);
-	return (line);
-}
-
-char	*ft_line(char *buffer)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	if (!buffer[i])
-		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	line = ft_calloc(i + 2, sizeof(char));
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] && buffer[i] == '\n')
-		line[i++] = '\n';
-	return (line);
-}
-
-char	*read_file(int fd, char *res)
-{
-	char	*buffer;
-	int		byte_read;
-
-	if (!res)
-		res = ft_calloc(1, 1);
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	byte_read = 1;
-	while (byte_read > 0)
-	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[byte_read] = 0;
-		res = fr_free(res, buffer);
-		if (ft_strchr(buffer, '\n'))
-			break ;
-	}
-	free(buffer);
-	return (res);
-}
+static void	read_line(t_line **cache, int fd);
+static int	is_new_line(t_line *cache);
+static void	create_line(t_line *cache, char **line);
+static void	refactor_line(t_line **cache);
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[LIMIT];
-	char		*line;
+	static t_line	*cache = NULL;
+	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer[fd] = read_file(fd, buffer[fd]);
-	if (!buffer[fd])
+	read_line(&cache, fd);
+	if (!cache)
 		return (NULL);
-	line = ft_line(buffer[fd]);
-	buffer[fd] = ft_next(buffer[fd]);
+	create_line(cache, &line);
+	refactor_line(&cache);
 	return (line);
+}
+
+static void	read_line(t_line **cache, int fd)
+{
+	int		output;
+	char	*buffer;
+	t_line	*new_node;
+
+	output = 0;
+	while (!is_new_line(*cache))
+	{
+		buffer = NULL;
+		new_node = ft_lstnew(buffer);
+		new_node->content = ft_calloc(sizeof(*buffer), (BUFFER_SIZE + 1));
+		output = read(fd, new_node->content, BUFFER_SIZE);
+		if (output == 0 || output == -1)
+		{
+			free(new_node->content);
+			free(new_node);
+			return ;
+		}
+		new_node->content[BUFFER_SIZE] = '\0';
+		ft_lstadd_back(cache, new_node);
+	}
+}
+
+static int	is_new_line(t_line *cache)
+{
+	int		i;
+
+	cache = ft_lstlast(cache);
+	if (!cache)
+		return (0);
+	i = 0;
+	while (cache->content[i] != '\0')
+	{
+		if (cache->content[i] == '\n')
+		{
+			cache->length = ++i;
+			return (1);
+		}
+		i++;
+	}
+	cache->length = i;
+	return (0);
+}
+
+static void	create_line(t_line *cache, char **line)
+{
+	int		ln_size;
+	int		i;
+	t_line	*temp;
+
+	temp = cache;
+	ln_size = 0;
+	while (temp)
+	{
+		ln_size = ln_size + temp->length;
+		temp = temp->next;
+	}
+	if (!ln_size)
+		return ;
+	*line = malloc(sizeof(**line) * (ln_size + 1));
+	if (!line)
+		return ;
+	ln_size = 0;
+	while (cache && cache->content)
+	{
+		i = 0;
+		while (cache->content[i] && i < cache->length)
+			(*line)[ln_size++] = cache->content[i++];
+		cache = cache->next;
+	}
+	(*line)[ln_size] = '\0';
+}
+
+static void	refactor_line(t_line **cache)
+{
+	t_line	*temp;
+	t_line	*new_node;
+	char	*content;
+	int		i;
+	int		size;
+
+	size = 0;
+	temp = ft_lstlast(*cache);
+	if (!temp)
+		return ;
+	content = temp->content;
+	size = temp->length;
+	temp->content = NULL;
+	ft_lstclear(cache, free);
+	i = 0;
+	if (content[size] != '\0')
+	{
+		while (content[size] != '\0')
+			content[i++] = content[size++];
+		content[i] = '\0';
+		new_node = ft_lstnew(content);
+		ft_lstadd_back(cache, new_node);
+	}
+	else
+		free(content);
 }
