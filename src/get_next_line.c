@@ -43,8 +43,8 @@ static void	read_line(t_line **cache, int fd)
 	while (!is_new_line(*cache))
 	{
 		buffer = NULL;
-		new_node = ft_lstnew(buffer);
-		new_node->content = ft_calloc(sizeof(*buffer), (BUFFER_SIZE + 1));
+		new_node = ft_gnl_lstnew(buffer);
+		new_node->content = ft_gnl_calloc(sizeof(*buffer), (BUFFER_SIZE + 1));
 		output = read(fd, new_node->content, BUFFER_SIZE);
 		if (output == 0 || output == -1)
 		{
@@ -53,7 +53,7 @@ static void	read_line(t_line **cache, int fd)
 			return ;
 		}
 		new_node->content[BUFFER_SIZE] = '\0';
-		ft_lstadd_back(cache, new_node);
+		ft_gnl_lstadd_back(cache, new_node);
 	}
 }
 
@@ -61,7 +61,7 @@ static int	is_new_line(t_line *cache)
 {
 	int		i;
 
-	cache = ft_lstlast(cache);
+	cache = ft_gnl_lstlast(cache);
 	if (!cache)
 		return (0);
 	i = 0;
@@ -116,21 +116,21 @@ static void	refactor_line(t_line **cache)
 	int		size;
 
 	size = 0;
-	temp = ft_lstlast(*cache);
+	temp = ft_gnl_lstlast(*cache);
 	if (!temp)
 		return ;
 	content = temp->content;
 	size = temp->length;
 	temp->content = NULL;
-	ft_lstclear(cache, free);
+	ft_gnl_lstclear(cache, free);
 	i = 0;
 	if (content[size] != '\0')
 	{
 		while (content[size] != '\0')
 			content[i++] = content[size++];
 		content[i] = '\0';
-		new_node = ft_lstnew(content);
-		ft_lstadd_back(cache, new_node);
+		new_node = ft_gnl_lstnew(content);
+		ft_gnl_lstadd_back(cache, new_node);
 	}
 	else
 		free(content);

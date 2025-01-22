@@ -19,6 +19,8 @@
 # include <stdarg.h>
 # include <fcntl.h>
 
+# include "get_next_line.h"
+
 /*for lib*/
 typedef struct s_list
 {
@@ -78,4 +80,6 @@ char	*argstr(char *find, char **n);
 char	**free_split(char **alloc);
 char	**fsplit(char *s, char c);
 
+long	ft_atol(const char *nptr);
+long	ft_htol(const char *nptr);
 #endif

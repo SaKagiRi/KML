@@ -30,14 +30,14 @@ typedef struct s_line
 
 char	*get_next_line(int fd);
 
-t_line	*ft_lstnew(char *content);
+t_line	*ft_gnl_lstnew(char *content);
 
-t_line	*ft_lstlast(t_line *lst);
+t_line	*ft_gnl_lstlast(t_line *lst);
 
-void	ft_lstadd_back(t_line **lst, t_line *lst_new);
+void	ft_gnl_lstadd_back(t_line **lst, t_line *lst_new);
 
-void	ft_lstclear(t_line **lst, void (*del)(void *));
+void	ft_gnl_lstclear(t_line **lst, void (*del)(void *));
 
-void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_gnl_calloc(size_t nmemb, size_t size);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../include/get_next_line.h"
 
-t_line	*ft_lstnew(char *content)
+t_line	*ft_gnl_lstnew(char *content)
 {
 	t_line	*new_node;
 
@@ -25,7 +25,7 @@ t_line	*ft_lstnew(char *content)
 	return (new_node);
 }
 
-t_line	*ft_lstlast(t_line *lst)
+t_line	*ft_gnl_lstlast(t_line *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -36,7 +36,7 @@ t_line	*ft_lstlast(t_line *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(t_line **lst, t_line *new)
+void	ft_gnl_lstadd_back(t_line **lst, t_line *new)
 {
 	t_line	*temp;
 
@@ -47,11 +47,11 @@ void	ft_lstadd_back(t_line **lst, t_line *new)
 		*lst = new;
 		return ;
 	}
-	temp = ft_lstlast(*lst);
+	temp = ft_gnl_lstlast(*lst);
 	temp->next = new;
 }
 
-void	ft_lstclear(t_line **lst, void (*del)(void *))
+void	ft_gnl_lstclear(t_line **lst, void (*del)(void *))
 {
 	t_line	*temp_lst;
 
@@ -67,7 +67,7 @@ void	ft_lstclear(t_line **lst, void (*del)(void *))
 	*lst = NULL;
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_gnl_calloc(size_t nmemb, size_t size)
 {
 	void			*arr;
 	size_t			alloc_size;
