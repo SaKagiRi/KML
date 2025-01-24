@@ -28,9 +28,13 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+t_list	*ft_list_find(t_list *list, void *data_ref,
+			int (*cmp)(void *content, void *data_ref));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	ft_lstiter_if(t_list *list, void (*f)(void *), void *data_ref,
+			int (*cmp)(void *contnet, void *data_ref));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstadd_front(t_list **lst, t_list *node);
 void	ft_lstadd_back(t_list **lst, t_list *node);

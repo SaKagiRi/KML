@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_listfind.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knakto <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 15:52:26 by knakto            #+#    #+#             */
-/*   Updated: 2024/09/05 15:54:40 by knakto           ###   ########.fr       */
+/*   Created: 2025/01/24 18:12:18 by knakto            #+#    #+#             */
+/*   Updated: 2025/01/24 18:12:18 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/kml.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+t_list	*ft_list_find(t_list *list, void *data_ref,
+					int (*cmp)(void *content, void *data_ref))
 {
-	if (lst == NULL || f == NULL)
-		return ;
-	ft_lstiter(lst->next, f);
+	if (!list || !data_ref || !cmp)
+		return (NULL);
+	if (cmp(list->content, data_ref))
+		return (list);
+	return (ft_list_find(list->next, data_ref, cmp));
 }

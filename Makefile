@@ -46,7 +46,9 @@ FILE			= ft_atoi.c \
 				get_next_line.c \
 				argstr.c \
 				fsplit.c \
-				fjoin.c
+				fjoin.c \
+				ft_lstiter_if.c \
+				ft_lstfind.c \
 
 CC 				= cc
 AR_AND_FLAGS	= ar -rcs
