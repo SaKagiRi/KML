@@ -44,6 +44,7 @@ FILE			= ft_atoi.c \
 				ft_lstadd_front_bonus.c \
 				ft_printf.c \
 				get_next_line.c \
+				get_next_line_utils.c \
 				argstr.c \
 				fsplit.c \
 				fjoin.c \
