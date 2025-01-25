@@ -28,6 +28,9 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+void	ft_lstremove_if(t_list **list, void *data_ref,
+			int (*cmp)(void *content, void *data_ref),
+			void (*del)(void *content));
 t_list	*ft_list_find(t_list *list, void *data_ref,
 			int (*cmp)(void *content, void *data_ref));
 t_list	*ft_lstlast(t_list *lst);

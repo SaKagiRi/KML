@@ -50,6 +50,7 @@ FILE			= ft_atoi.c \
 				fjoin.c \
 				ft_lstiter_if.c \
 				ft_lstfind.c \
+				ft_lstremove_if.c
 
 CC 				= cc
 AR_AND_FLAGS	= ar -rcs
