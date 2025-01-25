@@ -16,6 +16,7 @@ void	ft_lstremove_if(t_list **list, void *data_ref,
 		int (*cmp)(void *content, void *data_ref), void (*del)(void *content))
 {
 	t_list	*node;
+	t_list	*elem;
 
 	if (!list || !*list || !(*list)->next || !data_ref || !cmp || !del)
 		return ;
@@ -26,14 +27,16 @@ void	ft_lstremove_if(t_list **list, void *data_ref,
 		del(node->content);
 		free(node);
 	}
-	while ((*list)->next)
+	elem = *list;
+	while (elem->next)
 	{
-		if (cmp((*list)->next->content, data_ref))
+		if (cmp(elem->next->content, data_ref))
 		{
-			node = (*list)->next;
-			(*list)->next = node->next;
+			node = elem->next;
+			elem->next = node->next;
 			del(node->content);
 			free(node);
 		}
+		elem = elem->next;
 	}
 }
