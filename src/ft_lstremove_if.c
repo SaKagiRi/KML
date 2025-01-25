@@ -17,7 +17,7 @@ void	ft_lstremove_if(t_list **list, void *data_ref,
 {
 	t_list	*node;
 
-	if (!list || !*list || !(*list)->next || !data_ref || !cmp || ! del)
+	if (!list || !*list || !(*list)->next || !data_ref || !cmp || !del)
 		return ;
 	if (cmp((*list)->content, data_ref))
 	{
