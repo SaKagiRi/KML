@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2024/11/17 22:29:37 by knakto           ###   ########.fr       */
+/*   Updated: 2025/02/19 15:34:35 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,15 @@ char	**fsplit(char *s, char c);
 
 long	ft_atol(const char *nptr);
 long	ft_htol(const char *nptr);
+
+//env
+void	update_env(char *name, char *value, char **env);
+void	delete_env(char	*name, char **env);
+char	*get_env(char *name, char *env);
+char	*find_env(char	*name, char *env);
+void	add_env(char *name, char *value, char **env);
+char	*create_env(char *name, char *value);
+void	print_env(char *env);
+void	ft_export(char	*content, char **env);
+
 #endif
