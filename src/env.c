@@ -5,58 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 15:40:37 by knakto            #+#    #+#             */
-/*   Updated: 2025/02/19 15:40:59 by knakto           ###   ########.fr       */
+/*   Created: 2025/02/21 00:32:48 by knakto            #+#    #+#             */
+/*   Updated: 2025/02/21 00:33:14 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/kml.h"
-
-void	print_env(char *env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (env[i] == ';')
-		{
-			write(1, "\n", 1);
-			i++;
-		}
-		if (!env[i])
-			break ;
-		write(1, &env[i++], 1);
-	}
-}
-
-char	*create_env(char *name, char *value)
-{
-	char	*env;
-	int		i;
-	int		len_name;
-	int		len_value;
-
-	if (!name || !value)
-		return (NULL);
-	len_name = 0;
-	len_value = 0;
-	while (*(name + len_name))
-		len_name++;
-	while (*(value + len_value))
-		len_value++;
-	env = malloc(len_name + len_value + 3);
-	if (!env)
-		return (NULL);
-	i = 0;
-	while (*name)
-		*(env + i++) = *name++;
-	*(env + i++) = '=';
-	while (*value)
-		*(env + i++) = *value++;
-	*(env + i++) = ';';
-	*(env + i) = '\0';
-	return (env);
-}
 
 static int	ft_find(char *str, char c)
 {
@@ -84,29 +38,53 @@ static void	to_null(char **str, char c)
 	}
 }
 
-void	ft_export(char	*content, char **env)
+char	*ft_envget(char *name)
+{
+	char	*find;
+	char	*res;
+	int		i;
+
+	if (!name)
+		return (NULL);
+	find = find_env(name);
+	if (!find)
+		return (NULL);
+	i = 0;
+	while (*(find + i) != '=')
+		i++;
+	i++;
+	res = ft_strdup(find + i);
+	i = 0;
+	while (*(res + i) != ';')
+		i++;
+	while (*(res + i))
+		*(res + i++) = '\0';
+	return (res);
+}
+
+void	ft_export(char	*content)
 {
 	char	**all;
 	char	*name;
 	char	*value;
+	char	**env;
 
-	if (!content || !env)
+	env = envhead();
+	if (!content || ft_find(content, '=') != 1 || !*env)
 		return ;
-	if (ft_find(content, '=') != 1)
-		return ;
-	if (!*env)
-		*env = create_env("USER", "knakto");
 	all = ft_split(content, '=');
-	name = all[0];
-	value = all[1];
+	name = ft_strtrim(all[0], " \t\n");
+	value = ft_strtrim(all[1], " \t\n");
+	free_split(all);
 	if (ft_find(name, '=') > 0)
 	{
 		value = "";
 		to_null(&name, '=');
 	}
-	if (find_env(name, *env) != NULL)
-		update_env(name, value, env);
+	if (find_env(name) != NULL)
+		ft_envupdate(name, value);
 	else
-		add_env(name, value, env);
-	free_split(all);
+		ft_envadd(name, value);
+	free(name);
+	free(value);
 }

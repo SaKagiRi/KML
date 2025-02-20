@@ -5,43 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 15:41:15 by knakto            #+#    #+#             */
-/*   Updated: 2025/02/19 15:41:19 by knakto           ###   ########.fr       */
+/*   Created: 2025/02/21 00:34:26 by knakto            #+#    #+#             */
+/*   Updated: 2025/02/21 00:34:49 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/kml.h"
 
-void	add_env(char *name, char *value, char **env)
+char	*find_env(char	*name)
 {
-	char	*temp;
-	char	*temp2;
-	char	*env2;
-	char	*env1;
 	int		i;
+	char	*env;
 
-	if (!name || !env || !value)
-		return ;
-	env1 = *env;
-	env2 = create_env(name, value);
-	temp2 = env2;
-	temp = malloc(ft_strlen(env1) + ft_strlen(env2) + 1);
-	if (!temp)
-		return ;
-	i = 0;
-	while (*env1)
-		*(temp + i++) = *env1++;
-	while (*env2)
-		*(temp + i++) = *env2++;
-	*(temp + i) = '\0';
-	free(*env);
-	free(temp2);
-	*env = temp;
-}
-
-char	*find_env(char	*name, char *env)
-{
-	int	i;
-
+	env = *envhead();
 	while (*env)
 	{
 		i = 0;
@@ -56,39 +32,97 @@ char	*find_env(char	*name, char *env)
 	return (NULL);
 }
 
-char	*get_env(char *name, char *env)
+char	*ft_envcreate(char *name, char *value)
 {
-	char	*find;
-	char	*res;
+	char	*env;
 	int		i;
+	int		len_name;
+	int		len_value;
 
-	if (!name || !env)
+	if (!name || !value)
 		return (NULL);
-	find = find_env(name, env);
-	if (!find)
+	len_name = 0;
+	len_value = 0;
+	while (*(name + len_name))
+		len_name++;
+	while (*(value + len_value))
+		len_value++;
+	env = malloc(len_name + len_value + 3);
+	if (!env)
 		return (NULL);
 	i = 0;
-	while (*(find + i) != '=')
-		i++;
-	i++;
-	res = ft_strdup(find + i);
-	i = 0;
-	while (*(res + i) != ';')
-		i++;
-	while (*(res + i))
-		*(res + i++) = '\0';
-	return (res);
+	while (*name)
+		*(env + i++) = *name++;
+	*(env + i++) = '=';
+	while (*value)
+		*(env + i++) = *value++;
+	*(env + i++) = ';';
+	*(env + i) = '\0';
+	return (env);
 }
 
-void	delete_env(char	*name, char **env)
+void	ft_envadd(char *name, char *value)
+{
+	char	*temp;
+	char	*temp2;
+	char	*env2;
+	char	**env;
+	int		i;
+
+	if (!name || !value)
+		return ;
+	env = envhead();
+	env2 = ft_envcreate(name, value);
+	temp2 = env2;
+	temp = malloc(ft_strlen(*env) + ft_strlen(env2) + 1);
+	if (!temp)
+		return ;
+	i = -1;
+	while (env[0][++i])
+		*(temp + i) = env[0][i];
+	while (*env2)
+		*(temp + i++) = *env2++;
+	*(temp + i) = '\0';
+	free(*env);
+	free(temp2);
+	*env = temp;
+}
+
+void	ft_envupdate(char *name, char *value)
+{
+	char	*find;
+	char	*temp;
+	char	**env;
+	int		i;
+
+	env = envhead();
+	if (!name || !env)
+		return ;
+	find = find_env(name);
+	if (!find)
+		return ;
+	i = 0;
+	while (*(find + i) != ';')
+		i++;
+	i++;
+	temp = ft_strdup(find + i);
+	i = 0;
+	while (*(find + i))
+		*(find + i++) = '\0';
+	ft_envadd(name, value);
+	*env = fjoin(*env, temp);
+	free(temp);
+}
+
+void	ft_envdelete(char	*name)
 {
 	char	*find;
 	int		i;
 	int		j;
 
-	if (!name || !env)
+	if (!name)
 		return ;
-	find = find_env(name, *env);
+	find = find_env(name);
 	if (!find)
 		return ;
 	i = 0;
@@ -100,28 +134,4 @@ void	delete_env(char	*name, char **env)
 		*(find + j++) = *(find + i++);
 	while (*(find + j))
 		*(find + j++) = '\0';
-}
-
-void	update_env(char *name, char *value, char **env)
-{
-	char	*find;
-	char	*temp;
-	int		i;
-
-	if (!name || !env)
-		return ;
-	find = find_env(name, *env);
-	if (!find)
-		return ;
-	i = 0;
-	while (*(find + i) != ';')
-		i++;
-	i++;
-	temp = ft_strdup(find + i);
-	i = 0;
-	while (*(find + i))
-		*(find + i++) = '\0';
-	add_env(name, value, env);
-	*env = fjoin(*env, temp);
-	free(temp);
 }

@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2025/02/19 15:34:35 by knakto           ###   ########.fr       */
+/*   Updated: 2025/02/21 00:42:59 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,19 @@ long	ft_atol(const char *nptr);
 long	ft_htol(const char *nptr);
 
 //env
-void	update_env(char *name, char *value, char **env);
-void	delete_env(char	*name, char **env);
-char	*get_env(char *name, char *env);
-char	*find_env(char	*name, char *env);
-void	add_env(char *name, char *value, char **env);
-char	*create_env(char *name, char *value);
-void	print_env(char *env);
-void	ft_export(char	*content, char **env);
+//*   env_utils.c                         :+:      :+:    :+:   */
+char	**envhead(void);
+void	ft_envinit(void);
+void	ft_unset(void);
+void	ft_envput(void);
+//*   env_function.c                      :+:      :+:    :+:   */
+char	*find_env(char	*name);
+char	*ft_envcreate(char *name, char *value);
+void	ft_envadd(char *name, char *value);
+void	ft_envupdate(char *name, char *value);
+void	ft_envdelete(char	*name);
+//*   env.c                               :+:      :+:    :+:   */
+char	*ft_envget(char *name);
+void	ft_export(char	*content);
 
 #endif
