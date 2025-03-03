@@ -6,7 +6,7 @@
 /*   By: knakto <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 02:59:10 by knakto            #+#    #+#             */
-/*   Updated: 2025/03/03 18:16:41 by knakto           ###   ########.fr       */
+/*   Updated: 2025/03/03 22:44:09 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*ft_itoa(int n)
 char	*ft_ltoa(long n)
 {
 	long long	nl;
-	size_t	len;
-	char	*str;
+	size_t		len;
+	char		*str;
 
 	nl = (long long)n;
 	len = ft_len(n);

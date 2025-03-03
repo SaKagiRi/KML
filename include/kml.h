@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2025/03/03 21:25:04 by knakto           ###   ########.fr       */
+/*   Updated: 2025/03/03 22:49:19 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,21 @@ long	ft_htol(const char *nptr);
 
 char	*ft_ltoa(long n);
 
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
+
 //env
-//*   env_utils.c                         :+:      :+:    :+:   */
-// char	**envhead(void);
-// void	ft_envinit(void);
-// void	ft_unset(void);
-// void	ft_envput(void);
-//*   env_function.c                      :+:      :+:    :+:   */
-// char	*find_env(char	*name);
-// char	*ft_envcreate(char *name, char *value);
-// void	ft_envadd(char *name, char *value);
-// void	ft_envupdate(char *name, char *value);
-// void	ft_envdelete(char	*name);
-//*   env.c                               :+:      :+:    :+:   */
-// char	*ft_envget(char *name);
-// void	ft_export(char	*content, ...);
+t_list	**envhead(void);
+t_env	*ft_envcreate(char *key, char *value);
+t_list	*ft_envfind(char *key);
+int		ft_envupdate(char *key, char *value);
+char	*ft_envget(char *key);
+void	ft_envput(void);
+void	ft_envadd(char *key, char *value);
+void	ft_unset(void);
+void	ft_envdel(char *key);
 
 #endif

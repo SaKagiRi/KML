@@ -5,86 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 00:32:48 by knakto            #+#    #+#             */
-/*   Updated: 2025/02/21 00:33:14 by knakto           ###   ########.fr       */
+/*   Created: 2025/03/03 22:46:00 by knakto            #+#    #+#             */
+/*   Updated: 2025/03/03 22:48:29 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/kml.h"
 
-static int	ft_find(char *str, char c)
+void	ft_envput(void)
 {
-	int	i;
-	int	status;
+	t_list	*env;
 
-	i = 0;
-	status = 0;
-	while (*(str + i++))
-		if (*(str + i) == c)
-			status += 1;
-	return (status);
-}
-
-static void	to_null(char **str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (*(*str + i))
+	env = *envhead();
+	while (env)
 	{
-		if (*(*str + i) == c)
-			*(*str + i) = '\0';
-		i++;
+		pnf("%s=%s\n", \
+			((t_env *)env->content)->key, ((t_env *)env->content)->value);
+		env = env->next;
 	}
 }
 
-char	*ft_envget(char *name)
+void	ft_envadd(char *key, char *value)
 {
-	char	*find;
-	char	*res;
-	int		i;
+	t_list	**env;
+	t_list	*new;
 
-	if (!name)
-		return (NULL);
-	find = find_env(name);
-	if (!find)
-		return (NULL);
-	i = 0;
-	while (*(find + i) != '=')
-		i++;
-	i++;
-	res = ft_strdup(find + i);
-	i = 0;
-	while (*(res + i) != ';')
-		i++;
-	while (*(res + i))
-		*(res + i++) = '\0';
-	return (res);
+	if (ft_envupdate(key, value) || !value)
+		return ;
+	env = envhead();
+	new = ft_lstnew(ft_envcreate(key, value));
+	ft_lstadd_back(env, new);
 }
 
-void	ft_export(char	*content)
+void	f_free(void *content)
 {
-	char	**all;
-	char	*name;
-	char	*value;
-	char	**env;
+	free(((t_env *)content)->key);
+	free(((t_env *)content)->value);
+	free(content);
+}
+
+void	ft_unset(void)
+{
+	t_list	**env;
 
 	env = envhead();
-	if (!content || ft_find(content, '=') != 1 || !*env)
-		return ;
-	all = ft_split(content, '=');
-	name = ft_strtrim(all[0], " \t\n");
-	value = ft_strtrim(all[1], " \t\n");
-	free_split(all);
-	if (ft_find(name, '=') > 0)
+	ft_lstclear(env, f_free);
+}
+
+void	ft_envdel(char *key)
+{
+	t_list	*env;
+	t_list	*node;
+
+	env = *envhead();
+	node = NULL;
+	if (env && \
+		!ft_strncmp(((t_env *)env->content)->key, key, ft_strlen(key) + 1))
 	{
-		value = "";
-		to_null(&name, '=');
+		node = env;
+		*envhead() = env->next;
+		ft_lstdelone(node, f_free);
+		return ;
 	}
-	if (find_env(name) != NULL)
-		ft_envupdate(name, value);
-	else
-		ft_envadd(name, value);
-	free(name);
-	free(value);
+	while (env)
+	{
+		if (env->next && !ft_strncmp(((t_env *)env->next->content)->key, \
+				key, ft_strlen(key) + 1))
+		{
+			node = env->next;
+			env->next = node->next;
+			ft_lstdelone(node, f_free);
+		}
+		env = env->next;
+	}
 }

@@ -51,9 +51,9 @@ FILE			= ft_atoi.c \
 				ft_lstiter_if.c \
 				ft_lstfind.c \
 				ft_lstremove_if.c \
-				env.c \
-				env_function.c \
-				env_utils.c
+				# env.c \
+				# env_function.c \
+				# env_utils.c
 
 CC 				= cc
 AR_AND_FLAGS	= ar -rcs

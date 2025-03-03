@@ -5,62 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knakto <knakto@student.42bangkok.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 00:35:16 by knakto            #+#    #+#             */
-/*   Updated: 2025/02/21 00:57:37 by knakto           ###   ########.fr       */
+/*   Created: 2025/03/03 22:45:33 by knakto            #+#    #+#             */
+/*   Updated: 2025/03/03 22:45:40 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/kml.h"
 
-static int	*isunset(void)
+t_list	**envhead(void)
 {
-	static int	unset = 0;
-
-	return (&unset);
-}
-
-char	**envhead(void)
-{
-	static char	*env = NULL;
+	static t_list	*env = NULL;
 
 	return (&env);
 }
 
-void	ft_envinit(void)
+t_env	*ft_envcreate(char *key, char *value)
 {
-	char	**env;
+	t_env	*new;
 
-	if (*isunset())
-		return ;
-	env = envhead();
-	*env = ft_envcreate("USER", "knakto");
-	*isunset() = 1;
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	return (new);
 }
 
-void	ft_unset(void)
+t_list	*ft_envfind(char *key)
 {
-	if (*isunset())
-	{
-		free(*envhead());
-		*isunset() = 0;
-	}
-}
-
-void	ft_envput(void)
-{
-	char	*env;
+	t_list	*env;
+	int		len;
 
 	env = *envhead();
-	while (*env)
+	len = ft_strlen(key);
+	while (env)
 	{
-		if (*env == ';')
-		{
-			write(1, "\n", 1);
-			env++;
-		}
-		if (!*env)
-			break ;
-		write(1, env, 1);
-		env++;
+		if (!ft_strncmp(((t_env *)env->content)->key, key, len + 1))
+			return (env);
+		env = env->next;
 	}
+	return (NULL);
+}
+
+int	ft_envupdate(char *key, char *value)
+{
+	t_list	*env;
+
+	if (!value)
+		return (0);
+	env = ft_envfind(key);
+	if (env)
+	{
+		free(((t_env *)env->content)->value);
+		((t_env *)env->content)->value = ft_strdup(value);
+		return (1);
+	}
+	return (0);
+}
+
+char	*ft_envget(char *key)
+{
+	t_list	*env;
+
+	env = ft_envfind(key);
+	if (env && ((t_env *)env->content)->value)
+		return (ft_strdup(((t_env *)env->content)->value));
+	return (NULL);
 }
