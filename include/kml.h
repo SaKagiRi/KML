@@ -6,7 +6,7 @@
 /*   By: knakto <knakto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:31:29 by knakto            #+#    #+#             */
-/*   Updated: 2025/03/03 22:49:19 by knakto           ###   ########.fr       */
+/*   Updated: 2025/04/04 17:50:49 by knakto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,10 @@ void	ft_envput(void);
 void	ft_envadd(char *key, char *value);
 void	ft_unset(void);
 void	ft_envdel(char *key);
+
+//ft_malloc
+void	ft_free(void);
+void	*ft_malloc(size_t count, size_t size);
+
 
 #endif
