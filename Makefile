@@ -3,7 +3,7 @@ NAME 			= kml.a
 AR_AND_FLAGS	= ar -rcs
 RM				= rm -rf
 CC				= cc
-HEADER			= #-I ./include
+HEADER			= -I ./include
 #------------[FLAGS]
 CFLAGS		= $(DEBUG_FLAGS) $(W_FLAGS)
 DEBUG_FLAGS	= -g3
@@ -46,13 +46,13 @@ LINKED_LIST_PATH	= linked_list
 LINKED_LIST_FILE	= ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_lstiter.c ft_lstlast.c ft_lstclear.c ft_lstdelone.c \
 					  ft_lstadd_back.c ft_lstadd_front.c ft_lstiter_if.c ft_lstfind.c ft_lstremove_if.c 
 #------------[PROCESS]
-all: print $(NAME)
-print:
-	@if [ ! -f "$(NAME)" ]; then printf "\033[38;5;226;1m|-\033[0m"; fi
+all: $(NAME)
 $(NAME): $(OBJ)
-	@$(AR_AND_FLAGS) $(NAME) $(OBJ) && printf "\033[38;5;226;1m-|\n<< Archive Libft >>\033[0m\n"
+	@$(AR_AND_FLAGS) $(NAME) $(OBJ) && printf "\033[38;5;226;1m<< Archive Libft >>\033[0m\n"
 %.o: %.c Makefile
-	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@ && printf "\033[38;5;226;1m#\033[0m"
+	@printf "\033[38;5;226;1m"
+	$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+	@printf "\033[1A\033[2K"
 clean:
 	@rm -rf $(OBJ)
 fclean: clean
