@@ -52,7 +52,7 @@ $(NAME): $(OBJ)
 %.o: %.c Makefile
 	@printf "\033[38;5;226;1m"
 	$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
-	@printf "\033[1A\033[2K"
+	@printf "\033[1A\033[2K" && sleep 0.01
 clean:
 	@rm -rf $(OBJ)
 fclean: clean
