@@ -31,7 +31,7 @@ STRING_FILE		= ft_itoa.c ft_split.c ft_strlen.c ft_strchr.c ft_strdup.c ft_subst
 #------------[CHARACTER]
 CHARACTER		= $(addprefix $(CHARACTER_PATH)/, $(CHARACTER_FILE))
 CHARACTER_PATH	= character
-CHARACTER_FILE	= ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_toupper.c ft_tolower.c 
+CHARACTER_FILE	= ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_toupper.c ft_tolower.c  ft_isspace.c
 #------------[MEMORY]
 MEMORY			= $(addprefix $(MEMORY_PATH)/, $(MEMORY_FILE))
 MEMORY_PATH		= memory
