@@ -3,8 +3,7 @@ NAME 			= kml.a
 AR_AND_FLAGS	= ar -rcs
 RM				= rm -rf
 CC				= cc
-HEADER			= -I ./include
-#------------[FLAGS]
+HEADER			= -I ./include #------------[FLAGS]
 CFLAGS		= $(DEBUG_FLAGS) $(W_FLAGS)
 DEBUG_FLAGS	= -g3
 W_FLAGS		= -Wall -Wextra -Werror
@@ -52,7 +51,7 @@ $(NAME): $(OBJ)
 %.o: %.c Makefile
 	@printf "\033[38;5;226;1m"
 	$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
-	@printf "\033[1A\033[2K" && sleep 0.01
+	@printf "\033[1A\033[2K"
 clean:
 	@rm -rf $(OBJ)
 fclean: clean
